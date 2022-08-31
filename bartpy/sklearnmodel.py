@@ -229,7 +229,8 @@ class SklearnModel(BaseEstimator, RegressorMixin):
                 "In sample predictions only possible if model.store_in_sample_predictions is `True`.  Either set the parameter to True or pass a non-None X parameter")
         else:
             return self._out_of_sample_predict(X)
-
+    def predict_variance(self, X):
+        return self.data.y.unnormalize_y(np.var(self._out_of_sample_predict(X),axis = 0))
     def residuals(self, X=None, y=None) -> np.ndarray:
         """
         Array of error for each observation
